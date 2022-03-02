@@ -34,13 +34,24 @@ public class MyProtocol implements IMACProtocol {
             return new TransmissionInfo(TransmissionType.Silent, 0);
         }
 
-        // Randomly transmit with 60% probability
-        if (new Random().nextInt(100) < 37) {
-            System.out.println("SLOT - Sending data and hope for no collision.");
-            return new TransmissionInfo(TransmissionType.Data, 0);
+        if (previousMediumState == MediumState.Collision) {
+            // Collision, 50% chance of sending
+            if (new Random().nextInt(100) < 50) {
+                System.out.println("COLISSION SLOT - Sending data after previous collision.");
+                return new TransmissionInfo(TransmissionType.Data, 0);
+            } else {
+                System.out.println("COLLISION SLOT - Not sending data after collision.");
+                return new TransmissionInfo(TransmissionType.Silent, 0);
+            }
         } else {
-            System.out.println("SLOT - Not sending data to give room for others.");
-            return new TransmissionInfo(TransmissionType.Silent, 0);
+            // No collision, randomly transmit with 60% probability
+            if (new Random().nextInt(100) < 37) {
+                System.out.println("SLOT - Sending data and hope for no collision.");
+                return new TransmissionInfo(TransmissionType.Data, 0);
+            } else {
+                System.out.println("SLOT - Not sending data to give room for others.");
+                return new TransmissionInfo(TransmissionType.Silent, 0);
+            }
         }
 
     }
