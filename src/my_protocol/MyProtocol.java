@@ -35,8 +35,8 @@ public class MyProtocol implements IMACProtocol {
         }
 
         if (previousMediumState == MediumState.Collision) {
-            // Collision, 50% chance of sending
-            if (new Random().nextInt(100) < 50) {
+            // Collision, xx% chance of sending
+            if (new Random().nextInt(100) < 30) {
                 System.out.println("COLISSION SLOT - Sending data after previous collision.");
                 return new TransmissionInfo(TransmissionType.Data, 0);
             } else {
@@ -44,7 +44,7 @@ public class MyProtocol implements IMACProtocol {
                 return new TransmissionInfo(TransmissionType.Silent, 0);
             }
         } else {
-            // No collision, randomly transmit with 60% probability
+            // No collision, randomly transmit with xx% probability
             if (new Random().nextInt(100) < 37) {
                 System.out.println("SLOT - Sending data and hope for no collision.");
                 return new TransmissionInfo(TransmissionType.Data, 0);
