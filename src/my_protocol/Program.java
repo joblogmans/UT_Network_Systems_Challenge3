@@ -6,6 +6,7 @@ import framework.MACChallengeClient;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 /**
  * Entry point of the program. Starts the client and links the used MAC
@@ -27,6 +28,9 @@ public class Program {
 
     // Challenge server port
     private static int serverPort = 8003;
+
+    // Randomly generate random ID, used by MyProtocol.
+    public static int clientID = new Random().nextInt(100);
 
     /*
      *
